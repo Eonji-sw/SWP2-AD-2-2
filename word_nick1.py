@@ -25,9 +25,13 @@ class Word_nick:
 
         print('%d words in words_nick.txt' % self.count)
 
-    def randKor(self):
-        k = random.randrange(self.count)
-        return self.lst_kor[k]   # create word by random
+    def randKor(self, cnt_kor):
+        cnt = cnt_kor
+        kor_word = ""
+        for i in range(cnt):
+            k = random.randrange(self.count)
+            kor_word += self.lst_kor[k]
+        return kor_word   # create word by random
 
     def randEng(self, cnt_eng):
         cnt = cnt_eng
