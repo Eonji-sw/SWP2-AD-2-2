@@ -6,7 +6,8 @@ class Word_nick:
     def __init__(self, filename):
         self.lst_kors = []
         self.lst_kor = []
-        f = open(filename, 'r')
+        #f = open(filename, 'r')
+        f = open(filename, 'r', encoding = "UTF8")
         lines = f.readlines()
         f.close()
 
