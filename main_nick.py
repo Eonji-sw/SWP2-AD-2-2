@@ -109,7 +109,7 @@ class Main_nick(QWidget):
         self.checked = []
         items = ""
 
-        if self.checkbox1.isChecked():
+        if self.checkbox1.isChecked() == True:
             self.checked.append("한글")
         if self.checkbox2.isChecked():
             self.checked.append("영어")
@@ -117,6 +117,8 @@ class Main_nick(QWidget):
             self.checked.append("숫자")
         if self.checkbox4.isChecked():
             self.checked.append("특수문자")
+        if self.checkbox1.isChecked() == False and self.checkbox2.isChecked() == False and self.checkbox3.isChecked() == False and self.checkbox4.isChecked() == False:
+            self.checked.append("None")
 
         #print("Checked: %s" % ", ".join(checked))
 
@@ -136,6 +138,9 @@ if __name__ == '__main__':
     import sys
 
     app = QApplication(sys.argv)
+    screen = Main_nick()
+    screen.show()
+    sys.exit(app.exec_())
     screen = Main_nick()
     screen.show()
     sys.exit(app.exec_())
