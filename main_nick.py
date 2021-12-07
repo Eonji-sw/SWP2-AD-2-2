@@ -3,10 +3,15 @@ from PyQt5.QtWidgets import QApplication, QWidget, QCheckBox
 from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout
 from PyQt5.QtWidgets import QTextEdit, QLineEdit, QToolButton, QLabel
 
-import sys
 from word_nick import *
 
-# 글자수, 오류처리(경고창), clicked, 파일 open
+# (글자수), 오류처리(경고창), clicked
+# 1) 아무것도 선택을 안했을때 오류
+# 2) 선택한 값이 글자수를 초과할때 오류
+# 3) 글자수를 입력하지 않았을때 랜덤(len(checked), 100)
+# 4) checked 인자 연결
+# 5) clicked 연결
+# 6) length nick -> word nick
 
 class Main_nick(QWidget):
 
@@ -15,6 +20,7 @@ class Main_nick(QWidget):
 
         self.word = Word_nick('words_nick.txt')
         self.initGUI()
+        #self.checked = []
 
     def initGUI(self):
 
@@ -119,6 +125,7 @@ class Main_nick(QWidget):
             self.checked.append("특수문자")
         if self.checkbox1.isChecked() == False and self.checkbox2.isChecked() == False and self.checkbox3.isChecked() == False and self.checkbox4.isChecked() == False:
             self.checked.append("None")
+        print(self.checked)
 
         #print("Checked: %s" % ", ".join(checked))
 
@@ -133,6 +140,11 @@ class Main_nick(QWidget):
 
             self.label.setText(c + items)
 
+    def limitNick(self):
+        return self.checkbox_toggled().checked
+
+
+
 
 if __name__ == '__main__':
     import sys
@@ -141,7 +153,3 @@ if __name__ == '__main__':
     screen = Main_nick()
     screen.show()
     sys.exit(app.exec_())
-    screen = Main_nick()
-    screen.show()
-    sys.exit(app.exec_())
-    
