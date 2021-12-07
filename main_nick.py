@@ -1,33 +1,26 @@
-from PyQt5.QtWidgets import *
-from PyQt5.QtCore import Qt
 from PyQt5 import QtGui
-#from PyQt5.QtWidgets import QApplication, QWidget, QCheckBox
-#from PyQt5.QtWidgets import QLayout, QGridLayout
-#from PyQt5.QtWidgets import QTextEdit, QLineEdit, QToolButton
+from PyQt5.QtWidgets import QApplication, QWidget, QCheckBox
+from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout
+from PyQt5.QtWidgets import QTextEdit, QLineEdit, QToolButton, QLabel
 
 import sys
 from word_nick import *
 
-# 글자수, 오류처리(경고창), 위젯, clicked, 파일 open
+# 글자수, 오류처리(경고창), clicked, 파일 open
 
 class Main_nick(QWidget):
 
     def __init__(self):
-
         super().__init__()
+        self.initGUI()
 
-        self.count = 0
-        self.initialize()
+    def initGUI(self):
 
-    def initialize(self):
+        self.setGeometry(300, 200, 400, 400)
 
-        self.setGeometry(500, 500, 400, 400)
-
-        #layout = QGridLayout()
-        #self.setLayout(layout)
         layout = QVBoxLayout()
 
-        ################## layout1 #################
+        # layout1
         layout1 = QHBoxLayout()
         layout.addLayout(layout1)
 
@@ -35,7 +28,6 @@ class Main_nick(QWidget):
         self.checkbox1.setChecked(False)
         self.checkbox1.setFont(QtGui.QFont('Hack', 15))
         self.checkbox1.toggled.connect(self.checkbox_toggled)
-
 
         layout1.addWidget(self.checkbox1)
 
@@ -60,45 +52,59 @@ class Main_nick(QWidget):
 
         layout1.addWidget(self.checkbox4)
 
-        #######################################
 
-        len = QLabel('원하는 닉네임의 길이를 입력하세요 : ')
-        layout.addWidget(len)
+        # layout2
+        layout2 = QHBoxLayout()
+        layout.addLayout(layout2)
+
+        # select option
+        self.label = QLabel("Checked : None")
+        self.label.setFont(QtGui.QFont('Hack', 15))
+
+        layout2.addWidget(self.label)
+
+
+        # layout3
+        layout3 = QHBoxLayout()
+        layout.addLayout(layout3)
+
+        self.len = QLabel('원하는 닉네임의 길이를 입력하세요 : ')
+        self.len.setFont(QtGui.QFont('Hack', 15))
+        layout3.addWidget(self.len)
         self.lenEdit = QLineEdit()
-        #self.nick_lenEdit = QTextEdit()
-        layout.addWidget(self.lenEdit)
+        layout3.addWidget(self.lenEdit)
 
-        # Button for submitting a character
-        self.createButton = QToolButton()
-        self.createButton.setText('생성')
-        #self.createButton.clicked.connect(self.guessClicked)
-        layout.addWidget(self.createButton)
 
-        self.createButton = QToolButton()
-        self.createButton.setText('복사')
-        #self.createButton.clicked.connect(self.guessClicked)
-        layout.addWidget(self.createButton)
+        # layout4
+        layout4 = QHBoxLayout()
+        layout.addLayout(layout4)
 
-        nick = QLabel('생성된 닉네임입니다!')
-        layout.addWidget(nick)
+        self.nick = QLabel('생성된 닉네임입니다!')
+        self.nick.setFont(QtGui.QFont('Hack', 15))
+        layout4.addWidget(self.nick)
         self.currentWord = QTextEdit()
         layout.addWidget(self.currentWord)
         self.currentWord.setReadOnly(True)
 
-        # select option
-        self.label = QLabel("Selected")
-        # self.label.setAlignment(Qt.AlignCenter)
-        self.label.setFont(QtGui.QFont('Hack', 15))
+        # create buttons
+        self.createButton = QToolButton()
+        self.createButton.setText('생성')
+        self.createButton.setFont(QtGui.QFont('Hack', 15))
+        #self.createButton.clicked.connect(self.guessClicked)
+        layout4.addWidget(self.createButton)
 
-        layout.addWidget(self.label)
-        ############################
+        self.copyButton = QToolButton()
+        self.copyButton.setText('복사')
+        self.copyButton.setFont(QtGui.QFont('Hack', 15))
+        #self.createButton.clicked.connect(self.guessClicked)
+        layout4.addWidget(self.copyButton)
+
 
         self.setLayout(layout)
 
     def checkbox_toggled(self):
 
         checked = []
-
         items = ""
 
         if self.checkbox1.isChecked():
@@ -110,11 +116,11 @@ class Main_nick(QWidget):
         if self.checkbox4.isChecked():
             checked.append("특수문자")
 
-        print("* Selected: %s" % ", ".join(checked))
+        #print("Checked: %s" % ", ".join(checked))
 
         count = 0
         for item in checked:
-            c = "*checked : "
+            c = "Checked : "
             if count != len(checked) - 1:
                 items += item + ', '
             else:
@@ -131,3 +137,4 @@ if __name__ == '__main__':
     screen = Main_nick()
     screen.show()
     sys.exit(app.exec_())
+    
