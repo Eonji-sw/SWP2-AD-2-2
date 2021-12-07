@@ -12,6 +12,8 @@ class Main_nick(QWidget):
 
     def __init__(self):
         super().__init__()
+
+        self.word = Word_nick('words_nick.txt')
         self.initGUI()
 
     def initGUI(self):
@@ -104,24 +106,24 @@ class Main_nick(QWidget):
 
     def checkbox_toggled(self):
 
-        checked = []
+        self.checked = []
         items = ""
 
         if self.checkbox1.isChecked():
-            checked.append("한글")
+            self.checked.append("한글")
         if self.checkbox2.isChecked():
-            checked.append("영어")
+            self.checked.append("영어")
         if self.checkbox3.isChecked():
-            checked.append("숫자")
+            self.checked.append("숫자")
         if self.checkbox4.isChecked():
-            checked.append("특수문자")
+            self.checked.append("특수문자")
 
         #print("Checked: %s" % ", ".join(checked))
 
         count = 0
-        for item in checked:
+        for item in self.checked:
             c = "Checked : "
-            if count != len(checked) - 1:
+            if count != len(self.checked) - 1:
                 items += item + ', '
             else:
                 items += item
