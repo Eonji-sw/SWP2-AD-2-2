@@ -6,14 +6,6 @@ from PyQt5.QtWidgets import QTextEdit, QLineEdit, QToolButton, QLabel
 from word_nick import *
 from length_nick import *
 
-# (글자수), 오류처리(경고창), clicked
-# 1) 아무것도 선택을 안했을때 오류
-# 2) 선택한 값이 글자수를 초과할때 오류
-# 3) 글자수를 입력하지 않았을때 랜덤(len(checked), 100)
-# 4) checked 인자 연결
-# 5) clicked 연결
-# 6) length nick -> word nick
-
 class Main_nick(QWidget):
 
     def __init__(self):
