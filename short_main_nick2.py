@@ -151,7 +151,9 @@ class Main_nick(QWidget):
 
         #self.limitNick()
 
+
     def limitLen(self):
+        self.lenNum = self.lenEdit.text()
         return self.lenNum
 
     def limitNick(self):
