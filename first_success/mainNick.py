@@ -1,6 +1,6 @@
 from PyQt5 import QtGui
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication, QWidget, QCheckBox
+from PyQt5.QtWidgets import QApplication, QWidget, QCheckBox, QMessageBox
 from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QLayout
 from PyQt5.QtWidgets import QTextEdit, QLineEdit, QToolButton, QLabel
 
@@ -98,54 +98,59 @@ class MainNick(QWidget):
         self.startNick = LengthNick()
 
     def createClicked(self):
-        # Get user input and clear length bar
-        userLen = self.lenEdit.text()
-        self.lenEdit.clear()
+        try:
+            # Get user input and clear length bar
+            userLen = self.lenEdit.text()
+            self.lenEdit.clear()
 
-        # Check the check status
-        checking = []
-        labalcheck = []
+            # Check the check status
+            checking = []
+            labalcheck = []
 
-        if self.checkbox1.isChecked():
-            checking.append("한글")
-            labalcheck.append("한글")
-        else:
-            checking.append("None")
-        if self.checkbox2.isChecked():
-            checking.append("영어")
-            labalcheck.append("영어")
-        else:
-            checking.append("None")
-        if self.checkbox3.isChecked():
-            checking.append("숫자")
-            labalcheck.append("숫자")
-        else:
-            checking.append("None")
-        if self.checkbox4.isChecked():
-            checking.append("특수문자")
-            labalcheck.append("특수문자")
-        else:
-            checking.append("None")
-
-        # Show the check status
-        items = ""
-        cnt = 0
-        for item in labalcheck:
-            if cnt != len(labalcheck) - 1:
-                items += item + ', '
+            if self.checkbox1.isChecked():
+                checking.append("한글")
+                labalcheck.append("한글")
             else:
-                items += item
-            cnt += 1
+                checking.append("None")
+            if self.checkbox2.isChecked():
+                checking.append("영어")
+                labalcheck.append("영어")
+            else:
+                checking.append("None")
+            if self.checkbox3.isChecked():
+                checking.append("숫자")
+                labalcheck.append("숫자")
+            else:
+                checking.append("None")
+            if self.checkbox4.isChecked():
+                checking.append("특수문자")
+                labalcheck.append("특수문자")
+            else:
+                checking.append("None")
 
-            self.label.setText("Checked : " + items)
+            # Show the check status
+            items = ""
+            cnt = 0
+            for item in labalcheck:
+                if cnt != len(labalcheck) - 1:
+                    items += item + ', '
+                else:
+                    items += item
+                cnt += 1
 
-        # Start creating random length of each option
-        self.randLst = self.startNick.displayNick(userLen, checking)
-        # Start passing the created random length
-        self.wording = WordNick()
-        self.wording.randFun(self.randLst)
-        # Show a nickname
-        self.currentWord.setText(self.wording.showText())
+                self.label.setText("Checked : " + items)
+
+            # Start creating random length of each option
+            self.randLst = self.startNick.displayNick(userLen, checking)
+            # Start passing the created random length
+            self.wording = WordNick()
+            self.wording.randFun(self.randLst)
+            # Show a nickname
+            self.currentWord.setText(self.wording.showText())
+            self.currentWord.setFont(QtGui.QFont('Hack', 15, QtGui.QFont.Bold))
+            self.currentWord.setAlignment(Qt.AlignCenter)
+        except ValueError:
+            self.Warning_event()
 
     def copyClicked(self):
         pass
@@ -154,6 +159,9 @@ class MainNick(QWidget):
         # Press Esc button to end
         if e.key() == Qt.Key_Escape:
             self.close()
+
+    def Warning_event(self):
+        QMessageBox.warning(self, 'Warning Title', 'There\'s a factor that\'s missing!\nPlease try again. :)')
 
 
 if __name__ == '__main__':
