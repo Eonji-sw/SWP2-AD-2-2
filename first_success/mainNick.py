@@ -4,8 +4,10 @@ from PyQt5.QtWidgets import QApplication, QWidget, QCheckBox, QMessageBox
 from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QLayout
 from PyQt5.QtWidgets import QTextEdit, QLineEdit, QToolButton, QLabel
 
-from wordNick import *
-from lengthNick import *
+import random
+
+from wordNick import WordNick
+from lengthNick import LengthNick
 
 class MainNick(QWidget):
 
@@ -25,28 +27,16 @@ class MainNick(QWidget):
         layout.addLayout(layout1)
 
         self.checkbox1 = QCheckBox("한글")
-        self.checkbox1.setChecked(False)
-        self.checkbox1.setFont(QtGui.QFont('Hack', 15))
-
-        layout1.addWidget(self.checkbox1)
-
         self.checkbox2 = QCheckBox("영어")
-        self.checkbox2.setChecked(False)
-        self.checkbox2.setFont(QtGui.QFont('Hack', 15))
-
-        layout1.addWidget(self.checkbox2)
-
         self.checkbox3 = QCheckBox("숫자")
-        self.checkbox3.setChecked(False)
-        self.checkbox3.setFont(QtGui.QFont('Hack', 15))
-
-        layout1.addWidget(self.checkbox3)
-
         self.checkbox4 = QCheckBox("특수문자")
-        self.checkbox4.setChecked(False)
-        self.checkbox4.setFont(QtGui.QFont('Hack', 15))
 
-        layout1.addWidget(self.checkbox4)
+        checkboxlst = [self.checkbox1, self.checkbox2, self.checkbox3, self.checkbox4]
+        for i in checkboxlst:
+            i.setChecked(False)
+            i.setFont(QtGui.QFont('Hack', 15))
+
+            layout1.addWidget(i)
 
         # Display layout2 for checked state
         layout2 = QHBoxLayout()
@@ -104,30 +94,17 @@ class MainNick(QWidget):
             checking = []
             labalcheck = []
 
-            if self.checkbox1.isChecked():
-                checking.append("한글")
-                labalcheck.append("한글")
-            else:
-                checking.append("None")
-            if self.checkbox2.isChecked():
-                checking.append("영어")
-                labalcheck.append("영어")
-            else:
-                checking.append("None")
-            if self.checkbox3.isChecked():
-                checking.append("숫자")
-                labalcheck.append("숫자")
-            else:
-                checking.append("None")
-            if self.checkbox4.isChecked():
-                checking.append("특수문자")
-                labalcheck.append("특수문자")
-            else:
-                checking.append("None")
+            checkboxlst = [(self.checkbox1, "한글"), (self.checkbox2, "영어"), (self.checkbox3, "숫자"), (self.checkbox4, "특수문자")]
+            for i, j in checkboxlst:
+                if i.isChecked():
+                    checking.append(j)
+                    labalcheck.append(j)
+                else:
+                    checking.append("None")
 
             # Create random length
             if userLen == '':
-                userLen = random.randrange(len(labalcheck), 181)
+                userLen = random.randrange(len(labalcheck), 999)
 
             # Show the check status
             items = ""
@@ -150,7 +127,7 @@ class MainNick(QWidget):
             self.currentWord.setText(self.wording.showText())
             self.currentWord.setFont(QtGui.QFont('Hack', 15, QtGui.QFont.Bold))
             self.currentWord.setAlignment(Qt.AlignCenter)
-        
+
         except ValueError or len(labalcheck) == 0:
             self.Warning_event()
 
@@ -160,6 +137,7 @@ class MainNick(QWidget):
             self.close()
 
     def Warning_event(self):
+        # Show error window
         QMessageBox.warning(self, 'Warning Title', 'There\'s a factor that\'s missing!\nPlease try again. :)')
 
 
