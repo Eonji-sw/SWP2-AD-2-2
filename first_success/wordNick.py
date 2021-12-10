@@ -7,6 +7,7 @@ class WordNick:
         self.finalNick = ""
 
     def creatKor(self):
+        # Arrangement txt file
         self.lstKors = []
         self.lstKor = []
         f = open('words.txt', 'r')
@@ -18,37 +19,31 @@ class WordNick:
             lineKor = line.split()
             self.lstKors.append(lineKor)
 
-        self.lstKor = sum(self.lstKors, [])   # all words in list of self.lst_kor
-        self.cnt = len(self.lstKor)   # all words count
-
-        #print('%d words in words_nick.txt' % self.count)
+        # All words in list of self.lst_kor
+        self.lstKor = sum(self.lstKors, [])
+        # All words count
+        self.cnt = len(self.lstKor)
 
     def randFun(self, lst):
         if lst[0] != 0:
             self.creatKor()
 
-        # create kor word by random
-        kor_word = ""
+        # Create kor word by random
         for i in range(lst[0]):
             k = random.randrange(self.cnt)
-            kor_word += self.lstKor[k]
-        # create eng word by random
-        eng_word = ""
+            self.finalNick += self.lstKor[k]
+        # Create eng word by random
         engStr = string.ascii_letters
         for i in range(lst[1]):
-            eng_word += random.choice(engStr)
-        # create num word by random
+            self.finalNick += random.choice(engStr)
+        # Create num word by random
         numStr = string.digits
-        num_word = ""
         for i in range(lst[2]):
-            num_word += random.choice(numStr)
-        # create pun word by random
+            self.finalNick += random.choice(numStr)
+        # Create pun word by random
         punStr = string.punctuation
-        pun_word = ""
         for i in range(lst[3]):
-            pun_word += random.choice(punStr)
-
-        self.finalNick = kor_word + eng_word + num_word + pun_word
+            self.finalNick += random.choice(punStr)
 
     def showText(self):
         return self.finalNick
