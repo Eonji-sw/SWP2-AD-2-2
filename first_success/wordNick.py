@@ -20,27 +20,27 @@ class WordNick:
 
         #print('%d words in words_nick.txt' % self.count)
 
-    def randFun(self, m):
-
+    def randFun(self, lst):
+        # create kor word by random
         kor_word = ""
-        for i in range(m[0]):
+        for i in range(lst[0]):
             k = random.randrange(self.count)
-            kor_word += self.lstKor[k]   # create kor word by random
-
+            kor_word += self.lstKor[k]
+        # create eng word by random
         eng_word = ""
         engStr = string.ascii_letters
-        for i in range(m[1]):
-            eng_word += random.choice(engStr)   # create eng word by random
-
+        for i in range(lst[1]):
+            eng_word += random.choice(engStr)
+        # create num word by random
         numStr = string.digits
         num_word = ""
-        for i in range(m[2]):
-            num_word += random.choice(numStr)   # create num word by random
-
+        for i in range(lst[2]):
+            num_word += random.choice(numStr)
+        # create pun word by random
         punStr = string.punctuation
         pun_word = ""
-        for i in range(m[3]):
-            pun_word += random.choice(punStr)   # create pun word by random
+        for i in range(lst[3]):
+            pun_word += random.choice(punStr)
 
         self.finalNick = kor_word + eng_word + num_word + pun_word
 
