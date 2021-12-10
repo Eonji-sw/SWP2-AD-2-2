@@ -1,6 +1,7 @@
 from PyQt5 import QtGui
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget, QCheckBox
-from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout
+from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QLayout
 from PyQt5.QtWidgets import QTextEdit, QLineEdit, QToolButton, QLabel
 
 from wordNick import *
@@ -12,8 +13,10 @@ class MainNick(QWidget):
         super().__init__()
 
         self.setGeometry(300, 200, 400, 400)
+        self.setWindowTitle('Nickname creation')
 
         layout = QVBoxLayout()
+        layout.setSizeConstraint(QLayout.SetFixedSize)
 
         # layout1
         layout1 = QHBoxLayout()
@@ -100,32 +103,52 @@ class MainNick(QWidget):
 
     def createClicked(self):
         userLen = self.lenEdit.text()
-        Checking = []
+        checking = []
+        labalcheck = []
 
         if self.checkbox1.isChecked():
-            Checking.append("한글")
+            checking.append("한글")
+            labalcheck.append("한글")
         else:
-            Checking.append("None")
+            checking.append("None")
         if self.checkbox2.isChecked():
-            Checking.append("영어")
+            checking.append("영어")
+            labalcheck.append("영어")
         else:
-            Checking.append("None")
+            checking.append("None")
         if self.checkbox3.isChecked():
-            Checking.append("숫자")
+            checking.append("숫자")
+            labalcheck.append("숫자")
         else:
-            Checking.append("None")
+            checking.append("None")
         if self.checkbox4.isChecked():
-            Checking.append("특수문자")
+            checking.append("특수문자")
+            labalcheck.append("특수문자")
         else:
-            Checking.append("None")
+            checking.append("None")
 
-        self.randLst = self.beginning.displayNick(userLen, Checking)
+        items = ""
+        cnt = 0
+        for item in labalcheck:
+            if cnt != len(labalcheck) - 1:
+                items += item + ', '
+            else:
+                items += item
+            cnt += 1
+
+            self.label.setText("Checked : " + items)
+
+        self.randLst = self.beginning.displayNick(userLen, checking)
         self.wording = WordNick()
         self.wording.randFun(self.randLst)
         self.currentWord.setText(self.wording.showText())
 
     def copyClicked(self):
         pass
+
+    def keyPressEvent(self, e):
+        if e.key() == Qt.Key_Escape:
+            self.close()
 
 
 if __name__ == '__main__':
