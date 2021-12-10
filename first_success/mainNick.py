@@ -13,7 +13,7 @@ class MainNick(QWidget):
         super().__init__()
 
         # Display window
-        self.setGeometry(300, 200, 400, 400)
+        self.setGeometry(800, 300, 400, 400)
         self.setWindowTitle('Nickname creation')
 
         # Main layout
@@ -66,6 +66,9 @@ class MainNick(QWidget):
         self.len.setFont(QtGui.QFont('Hack', 15))
         layout3.addWidget(self.len)
         self.lenEdit = QLineEdit()
+        self.lenEdit.setFixedSize(50, 25)
+        self.lenEdit.setFont(QtGui.QFont('Hack', 13))
+        self.lenEdit.setMaxLength(3)
         layout3.addWidget(self.lenEdit)
 
         # Display layout4 for nickname
@@ -79,18 +82,12 @@ class MainNick(QWidget):
         layout.addWidget(self.currentWord)
         self.currentWord.setReadOnly(True)
 
-        # Button for create and copy
+        # Button for create
         self.createButton = QToolButton()
         self.createButton.setText('생성')
         self.createButton.setFont(QtGui.QFont('Hack', 15))
         self.createButton.clicked.connect(self.createClicked)
         layout4.addWidget(self.createButton)
-
-        self.copyButton = QToolButton()
-        self.copyButton.setText('복사')
-        self.copyButton.setFont(QtGui.QFont('Hack', 15))
-        self.copyButton.clicked.connect(self.copyClicked)
-        layout4.addWidget(self.copyButton)
 
         self.setLayout(layout)
 
@@ -128,6 +125,10 @@ class MainNick(QWidget):
             else:
                 checking.append("None")
 
+            # Create random length
+            if userLen == '':
+                userLen = random.randrange(len(labalcheck), 181)
+
             # Show the check status
             items = ""
             cnt = 0
@@ -149,11 +150,9 @@ class MainNick(QWidget):
             self.currentWord.setText(self.wording.showText())
             self.currentWord.setFont(QtGui.QFont('Hack', 15, QtGui.QFont.Bold))
             self.currentWord.setAlignment(Qt.AlignCenter)
-        except ValueError:
+        
+        except ValueError or len(labalcheck) == 0:
             self.Warning_event()
-
-    def copyClicked(self):
-        pass
 
     def keyPressEvent(self, e):
         # Press Esc button to end
