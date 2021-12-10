@@ -4,27 +4,33 @@ import string
 class WordNick:
 
     def __init__(self):
+        self.finalNick = ""
+
+    def creatKor(self):
         self.lstKors = []
         self.lstKor = []
         f = open('words.txt', 'r')
         lines = f.readlines()
         f.close()
 
-        self.count = 0
+        self.cnt = 0
         for line in lines:
             lineKor = line.split()
             self.lstKors.append(lineKor)
 
         self.lstKor = sum(self.lstKors, [])   # all words in list of self.lst_kor
-        self.count = len(self.lstKor)   # all words count
+        self.cnt = len(self.lstKor)   # all words count
 
         #print('%d words in words_nick.txt' % self.count)
 
     def randFun(self, lst):
+        if lst[0] != 0:
+            self.creatKor()
+
         # create kor word by random
         kor_word = ""
         for i in range(lst[0]):
-            k = random.randrange(self.count)
+            k = random.randrange(self.cnt)
             kor_word += self.lstKor[k]
         # create eng word by random
         eng_word = ""
