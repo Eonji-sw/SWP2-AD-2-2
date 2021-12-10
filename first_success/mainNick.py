@@ -128,7 +128,7 @@ class MainNick(QWidget):
             self.currentWord.setFont(QtGui.QFont('Hack', 15, QtGui.QFont.Bold))
             self.currentWord.setAlignment(Qt.AlignCenter)
 
-        except ValueError or len(labalcheck) == 0:
+        except ValueError:
             self.Warning_event()
 
     def keyPressEvent(self, e):
