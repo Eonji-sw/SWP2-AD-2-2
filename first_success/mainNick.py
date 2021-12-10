@@ -12,13 +12,15 @@ class MainNick(QWidget):
     def __init__(self):
         super().__init__()
 
+        # Display window
         self.setGeometry(300, 200, 400, 400)
         self.setWindowTitle('Nickname creation')
 
+        # Main layout
         layout = QVBoxLayout()
         layout.setSizeConstraint(QLayout.SetFixedSize)
 
-        # layout1
+        # Display layout1 for checkbox
         layout1 = QHBoxLayout()
         layout.addLayout(layout1)
 
@@ -46,30 +48,27 @@ class MainNick(QWidget):
 
         layout1.addWidget(self.checkbox4)
 
-
-        # layout2
+        # Display layout2 for checked state
         layout2 = QHBoxLayout()
         layout.addLayout(layout2)
 
-        # select option
+        # Display select option
         self.label = QLabel("Checked : None")
         self.label.setFont(QtGui.QFont('Hack', 15))
 
         layout2.addWidget(self.label)
 
-
-        # layout3
+        # Display layout3 for length
         layout3 = QHBoxLayout()
         layout.addLayout(layout3)
 
         self.len = QLabel('원하는 닉네임의 길이를 입력하세요 : ')
         self.len.setFont(QtGui.QFont('Hack', 15))
         layout3.addWidget(self.len)
-        self.lenEdit = QLineEdit()    # 넘겨줘야함
+        self.lenEdit = QLineEdit()
         layout3.addWidget(self.lenEdit)
 
-
-        # layout4
+        # Display layout4 for nickname
         layout4 = QHBoxLayout()
         layout.addLayout(layout4)
 
@@ -80,7 +79,7 @@ class MainNick(QWidget):
         layout.addWidget(self.currentWord)
         self.currentWord.setReadOnly(True)
 
-        # create buttons
+        # Button for create and copy
         self.createButton = QToolButton()
         self.createButton.setText('생성')
         self.createButton.setFont(QtGui.QFont('Hack', 15))
@@ -95,14 +94,15 @@ class MainNick(QWidget):
 
         self.setLayout(layout)
 
-        self.startNick()
-
-    def startNick(self):
-        self.beginning = LengthNick()
-
+        # Start creation
+        self.startNick = LengthNick()
 
     def createClicked(self):
+        # Get user input and clear length bar
         userLen = self.lenEdit.text()
+        self.lenEdit.clear()
+
+        # Check the check status
         checking = []
         labalcheck = []
 
@@ -127,6 +127,7 @@ class MainNick(QWidget):
         else:
             checking.append("None")
 
+        # Show the check status
         items = ""
         cnt = 0
         for item in labalcheck:
@@ -138,15 +139,19 @@ class MainNick(QWidget):
 
             self.label.setText("Checked : " + items)
 
-        self.randLst = self.beginning.displayNick(userLen, checking)
+        # Start creating random length of each option
+        self.randLst = self.startNick.displayNick(userLen, checking)
+        # Start passing the created random length
         self.wording = WordNick()
         self.wording.randFun(self.randLst)
+        # Show a nickname
         self.currentWord.setText(self.wording.showText())
 
     def copyClicked(self):
         pass
 
     def keyPressEvent(self, e):
+        # Press Esc button to end
         if e.key() == Qt.Key_Escape:
             self.close()
 
