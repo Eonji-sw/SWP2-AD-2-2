@@ -37,8 +37,8 @@ class LengthNick:
 
         result = [0, 0, 0, 0]
 
+        j = 0
         for i in range(4):
-            j = 0
             if checked[i] == "None":
                 continue
             else:
