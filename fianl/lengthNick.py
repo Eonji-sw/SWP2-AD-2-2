@@ -1,21 +1,17 @@
 import random
-import copy
 
 class LengthNick:
 
     def __init__(self):
         self.lst = [0, 0, 0, 0]
 
-    def displayNick(self, userLen, chk):
+    def displayNick(self, userLen, chk, lachk):
         # Create random length of each option
         checked = chk
-        cpchecked = copy.deepcopy(checked)
+        labelchecked = lachk
 
         nickLen = int(userLen)
-        for k in checked:
-            if k == "None":
-                cpchecked.remove("None")
-        totalLen = len(cpchecked)
+        totalLen = len(labelchecked)
 
         if totalLen == 1:
             self.lst[0] = nickLen
