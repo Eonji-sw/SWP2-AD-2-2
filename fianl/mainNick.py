@@ -99,8 +99,8 @@ class MainNick(QWidget):
             checking = []
             labelcheck = []
 
-            checkboxlst = [(self.checkbox1, "한글"), (self.checkbox2, "영어"), (self.checkbox3, "숫자"), (self.checkbox4, "특수문자")]
-            for i, j in checkboxlst:
+            checkboxtuplst = [(self.checkbox1, "한글"), (self.checkbox2, "영어"), (self.checkbox3, "숫자"), (self.checkbox4, "특수문자")]
+            for i, j in checkboxtuplst:
                 if i.isChecked():
                     checking.append(j)
                     labelcheck.append(j)
@@ -124,7 +124,7 @@ class MainNick(QWidget):
                 self.label.setText("Checked : " + items)
 
             # Start creating random length of each option
-            self.randLst = self.startNick.displayNick(userLen, checking)
+            self.randLst = self.startNick.displayNick(userLen, checking, labelcheck)
             # Start passing the created random length
             self.wording = WordNick()
             self.wording.randFun(self.randLst)
