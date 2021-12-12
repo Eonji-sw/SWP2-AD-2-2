@@ -31,8 +31,8 @@ class MainNick(QWidget):
         self.checkbox3 = QCheckBox("숫자")
         self.checkbox4 = QCheckBox("특수문자")
 
-        checkboxlst = [self.checkbox1, self.checkbox2, self.checkbox3, self.checkbox4]
-        for i in checkboxlst:
+        self.checkboxlst = [self.checkbox1, self.checkbox2, self.checkbox3, self.checkbox4]
+        for i in self.checkboxlst:
             i.setChecked(False)
             i.setFont(QtGui.QFont('Hack', 15))
 
@@ -109,7 +109,7 @@ class MainNick(QWidget):
 
             # Create random length
             if userLen == '':
-                userLen = random.randrange(len(labelcheck), 999)
+                userLen = random.randrange(len(labelcheck), 1000)
 
             # Show the check status
             items = ""
@@ -142,8 +142,7 @@ class MainNick(QWidget):
     def resetClicked(self):
         # Reset each option
         self.lenEdit.clear()
-        checkboxlst = [self.checkbox1, self.checkbox2, self.checkbox3, self.checkbox4]
-        for i in checkboxlst:
+        for i in self.checkboxlst:
             i.setChecked(False)
 
         self.label.setText("Checked : None")
